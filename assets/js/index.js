@@ -21,9 +21,22 @@ const ApodDateInputWrapper = document.querySelector(".date-input-wrapper")
 const TodayApodBtn= document.querySelector("#today-apod-btn")
 const LoadDateBtn = document.querySelector("#load-date-btn")
 const APOD_MIN_DATE = "1995-06-16";
-
 let planetsData = [];
 
+// sidebar section
+sideBar.addEventListener("click", function (e) {
+  const link = e.target.closest(".nav-link");
+  if (!link) return;
+
+  sections.forEach((section) => {
+    section.classList.add("hidden");
+  });
+
+  document.getElementById(link.dataset.section).classList.remove("hidden");
+});
+
+
+//today-in-space section
 function formatApodDate(dateValue) {
   const date = new Date(`${dateValue}T00:00:00`);
 
@@ -67,17 +80,6 @@ function updateTodayApodDate() {
 setApodDateLimits();
 updateTodayApodDate();
 
-
-sideBar.addEventListener("click", function (e) {
-  const link = e.target.closest(".nav-link");
-  if (!link) return;
-
-  sections.forEach((section) => {
-    section.classList.add("hidden");
-  });
-
-  document.getElementById(link.dataset.section).classList.remove("hidden");
-});
 
 
 async function getAPODAPI(){
@@ -148,7 +150,7 @@ TodayApodBtn.addEventListener("click", function () {
 });
 
 
-
+// Launches section
 function escapeHTML(value) {
   return String(value || "")
     .replaceAll("&", "&amp;")
@@ -324,7 +326,7 @@ async function getLaunches(){
 getLaunches()
 
 
-
+//Planets Section
 const PLANET_QUICK_FACTS = {
     mercury: [
         "Smallest planet in the solar system",
